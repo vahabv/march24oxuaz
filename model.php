@@ -1,4 +1,4 @@
-<?php 
+<?php
 	class Database{
 	 	public $server;
 		public $username;
@@ -133,10 +133,10 @@
 							            </div>
 							          </div>
 				        </div>
-				</a>       
+				</a>
 		 	    ";
 		 	}
-		 		
+
 		 	}else{
 		 		echo 'query error';
 		 	}
@@ -243,3 +243,23 @@
 		}
 	}
  ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ?>
+>>>>>>> 27658869584899ec9d2b0185d946d52f03aff519
