@@ -167,4 +167,79 @@
 			}
 		}
 	}
+	class MenuShow{
+		public $menuName;
+		public $menuUrl;
+		function __construct($connection){
+			$sql = "SELECT * FROM menu";
+			$query = mysqli_query($connection, $sql);
+			if($query){
+				while ($row=mysqli_fetch_assoc($query)) {
+				    $menu_id=$row['menu_id'];
+				    $menu_name=$row['menu_title'];
+				    $menu_url=$row['menu_url'];
+				    echo "
+							<tr>
+								<td>$menu_id</td>
+								<td>$menu_name</td>
+								<td>$menu_url</td>
+								<td><a href='editmenu.php?id=$menu_id'>Edit</a></td>
+								<td><a href='delete.php?id=$menu_id'>Delete</a></td>
+							</tr>
+				    ";
+				}
+			}else{
+				echo "something wrong with query";
+			}
+		}
+	}
+	class DeleteMenu{
+		public $menuId;
+		function __construct($connection, $menuId){
+			$sqlDelete = "DELETE FROM menu WHERE menu_id='$menuId'";
+			$queryDelete = mysqli_query($connection, $sqlDelete);
+			if($queryDelete){
+				header("Location:menuselect.php");
+			}else{
+				echo "query error";
+			}
+		}
+	}
+	class ShowEditingMenu{
+		function __construct($connection, $menuid){
+			$editingSql="SELECT * FROM menu WHERE menu_id='$menuid'";
+			$editingQuery= mysqli_query($connection, $editingSql);
+			if($editingQuery){
+				$editingRow = mysqli_fetch_assoc($editingQuery);
+				$editingName=$editingRow['menu_title'];
+				$editingUrl=$editingRow['menu_url'];
+				echo "
+						<form action='' method='POST'>
+						  <div class='row'>
+						    <div class='input-field col s6'>
+						      <input value=$editingName id='first_name2' type='text' class='validate' name='newMenuName'>
+						      <label class='active' for='first_name2'>Menu Name</label>
+						      <input value=$editingUrl id='first_name2' type='text' class='validate' name='newMenuUrl'>
+						      <label class='active' for='first_name2'>Menu Url</label>
+						    </div>
+						  </div>
+						  <a class='waves-effect waves-light btn'><input type='submit' name='submit'></input></a>
+						</form>
+				";
+			}else{
+				echo "query error";
+			}
+		}
+	}
+	class EditMenu{
+		function __construct($connection,$editedMenuName, $editedMenuUrl){
+			$updateSql = "UPDATE menu SET menu_title='$editedMenuName', menu_url='$editedMenuUrl'";
+			$updateQuery = mysqli_query($connection, $updateSql);
+			if($updateQuery){
+				header("Location:menuselect.php");
+			}else{
+				echo "query error";
+			}
+		}
+	}
  ?>
